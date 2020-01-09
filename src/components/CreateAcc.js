@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
-import * as actions from '../utils/actions';
-import { connect } from 'react-redux';
 import bgImage from './farm.png';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
-
-const CreateAcc = e => {
-       const initialState = {
+const CreateAcc = props => {
+    const [submittedForm, setSubmittedForm] = useState()
+       
+    const initialState = {
         email: '',
         username: '',
         password: '',
@@ -19,36 +18,36 @@ const CreateAcc = e => {
     };
 
     const [user, setUser] = useState(initialState);
-
     console.log("state before submitting request", user)
+
+    let history = useHistory();
 
     const handleChanges = e => {
         setUser({...user, [e.target.name]: e.target.value});
-        console.log(e.target.value);
+        // console.log(user);
     };
 
     const submitForm = e => {
-        return dispatch => {
-
         e.preventDefault();
         console.log('denise was here')
+        history.push('/Login')
+        // delete user.terms
+        // setSubmittedForm()
+        // setSubmittedForm()
         setUser(initialState);
 
         axios
         .post("https://bestfarm.herokuapp.com/api/auth/register", user, {
+            headers:{  "Access-Control-Allow-Origin": "*" }
         })
-        .then(res => {
-            dispatch({type: actions.REGISTER_SUCCESS, payload: res.data})
-            sessionStorage.setItem('token, res.data.payload')
-        })
+        .then(res => console.log(res))
         .catch(err => console.error(err));
-    }
-}
+    };
 
     return (
         <div className='registerContainer'>
             <div className='imageContainer'>
-                <img src={bgImage} alt='Farm' />
+                <img src={bgImage}/>
             </div>
             <div className='registerForm'>
                 <h3 className='formHeading'>Create new account</h3>
@@ -130,7 +129,7 @@ const CreateAcc = e => {
                     />
                     <span className='checkmark' />
                     </label>
-                    <button onClick={submitForm} className='createBtn' type='submit'>Create an account</button>
+                    <button className='createBtn' type='submit'>Create an account</button>
                 </form>
 
                 <p>Have an account? <a href='/login'>Sign In</a></p>
@@ -139,4 +138,4 @@ const CreateAcc = e => {
     );
 }
 
-export default connect()(CreateAcc);
+export default CreateAcc;
