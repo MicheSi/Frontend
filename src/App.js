@@ -32,6 +32,9 @@ function App() {
           <ShoppingCart />
         </Route>
         <PrivateRoute exact path="/produce" component = {ProduceList} />
+        <Route exact path='/'>
+          <CreateAcc />
+        </Route>
       </Switch>
     </div>
   );

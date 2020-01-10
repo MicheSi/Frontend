@@ -20,7 +20,7 @@ const FarmList = props => {
     return (
         <section className='farmList'>
             <div className='headerImg'>
-                <h1>Farms near </h1>
+                <h1>Farms near {props.zipCode}</h1>
                 <p>Choose any farms that fit your busy lifestyle.
                     For your convenience, our farms offer features that makes
                     eating healthy much easier.</p>
