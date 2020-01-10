@@ -8,9 +8,10 @@ import NavBar from './components/NavBar';
 import FarmList from './components/FarmList';
 import { ProduceList } from './components/ProduceList';
 import PrivateRoute from './components/PrivateRoute';
-
+import ShoppingCart from './components/Cart';
 // style imports
 import './App.css';
+
 
 
 function App() {
@@ -24,9 +25,12 @@ function App() {
         <Route exact path='/login'>
           <Login />
         </Route>
-        <Route path="/farms">
+        <Route exact path='/farms'>
           <FarmList />
-          </Route>
+        </Route>
+        <Route exact path='/cart'>
+          <ShoppingCart />
+        </Route>
         <PrivateRoute exact path="/produce" component = {ProduceList} />
       </Switch>
     </div>
